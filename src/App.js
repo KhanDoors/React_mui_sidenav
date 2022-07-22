@@ -1,9 +1,16 @@
-import Sidenav from "./component/Sidenav";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidenav from "./pages/dashboard/Sidenav";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <>
-      <Sidenav />
+      <BrowserRouter>
+        <Routes>
+          <Route path="sidenav/*" element={<Sidenav />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
