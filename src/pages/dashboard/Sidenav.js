@@ -10,6 +10,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import LockIcon from "@mui/icons-material/Lock";
 import Sidelist from "./Sidelist";
+import { Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 const drawerWidth = 240;
 
@@ -38,6 +41,8 @@ export default function MiniDrawer() {
     setOpen(true);
   };
 
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -55,6 +60,11 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
+          <Tooltip title="Go Back to Home Page">
+            <IconButton sx={{ mr: 1 }} onClick={() => navigate("/")}>
+              <HomeIcon />
+            </IconButton>
+          </Tooltip>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Khandoor
           </Typography>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -13,6 +13,13 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import SpeedIcon from "@mui/icons-material/Speed";
+import PersonIcon from "@mui/icons-material/Person";
+import User from "./user/User";
+import Main from "./main/Main";
+import Test from "./tester/Test";
 
 const drawerWidth = 240;
 
@@ -64,6 +71,37 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Sidelist = ({ open, setOpen }) => {
+  const list = useMemo(
+    () => [
+      {
+        title: "Main",
+        icon: <DashboardIcon />,
+        link: "",
+        component: <Main />,
+      },
+      {
+        title: "Test",
+        icon: <SpeedIcon />,
+        link: "test",
+        component: <Test />,
+      },
+      {
+        title: "User",
+        icon: <PersonIcon />,
+        link: "user",
+        component: <User />,
+      },
+    ],
+    []
+  );
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (link) => {
+    navigate(link);
+    setOpen(false);
+  };
+
   return (
     <>
       <Drawer variant="permanent" open={open}>
@@ -74,14 +112,15 @@ const Sidelist = ({ open, setOpen }) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {list.map((item) => (
+            <ListItem key={item.title} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
                 }}
+                onClick={() => handleNavigate(item.link)}
               >
                 <ListItemIcon
                   sx={{
@@ -90,9 +129,12 @@ const Sidelist = ({ open, setOpen }) => {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary={item.title}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
@@ -125,35 +167,11 @@ const Sidelist = ({ open, setOpen }) => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Routes>
+          {list.map((item) => (
+            <Route key={item.title} path={item.link} element={item.component} />
+          ))}
+        </Routes>
       </Box>
     </>
   );
