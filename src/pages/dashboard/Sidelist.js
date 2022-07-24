@@ -13,6 +13,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -63,7 +64,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const Sidelist = ({ open, setOpen }) => {
+const Sidelist = ({ open, setOpen }, props) => {
   return (
     <>
       <Drawer variant="permanent" open={open}>
@@ -74,53 +75,38 @@ const Sidelist = ({ open, setOpen }) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem>
+            <ListItemIcon>
+              {" "}
+              <span role="img" aria-label="home">
+                {" "}
+                🏡{" "}
+              </span>
+            </ListItemIcon>
+            <ListItemText>
+              <Link style={{ color: "teal", textDecoration: "none" }} to="/">
+                Home
+              </Link>
+            </ListItemText>
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {" "}
+          <ListItem>
+            <ListItemIcon>
+              {" "}
+              <span role="img" aria-label="home">
+                {" "}
+                🏡{" "}
+              </span>
+            </ListItemIcon>
+            <ListItemText>
+              <Link style={{ color: "teal", textDecoration: "none" }} to="/">
+                Home
+              </Link>
+            </ListItemText>
+          </ListItem>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
