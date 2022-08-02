@@ -17,9 +17,9 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SpeedIcon from "@mui/icons-material/Speed";
 import PersonIcon from "@mui/icons-material/Person";
-import User from "./user/User";
-import Main from "./main/Main";
-import Test from "./tester/Test";
+import Main from "../pages/main/Main";
+import Test from "../pages/tester/Test";
+import User from "../pages/user/User";
 
 const drawerWidth = 240;
 

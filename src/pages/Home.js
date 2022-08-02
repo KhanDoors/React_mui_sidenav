@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import MainPage from "../component/MainPage";
-import Navbar from "../component/Navbar";
+import Navbar from "../navigation/Navbar";
 
 const Home = () => {
   return (
